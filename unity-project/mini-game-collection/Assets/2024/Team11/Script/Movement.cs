@@ -43,10 +43,10 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         /*  Controller Mappings */
-        //vaxis = ArcadeInput.Player1.AxisY;
-        vaxis = Input.GetAxis("P1_AxisY");
-        //haxis = ArcadeInput.Player1.AxisY;
-        haxis = Input.GetAxis("P1_AxisX");
+        vaxis = ArcadeInput.Player1.AxisY;
+        //vaxis = Input.GetAxis("P1_AxisY");
+        haxis = ArcadeInput.Player1.AxisX;
+        //haxis = Input.GetAxis("P1_AxisX");
         isJumping = ArcadeInput.Player1.Action1.Down;
         //isJumpingAlt = Input.GetKey(KeyCode.Joystick1Button0);
 
