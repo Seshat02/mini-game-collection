@@ -1,33 +1,18 @@
-using MiniGameCollection.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneTransitioner : MonoBehaviour
+namespace MiniGameCollection
 {
-    [field: SerializeField]
-    public SceneSobj Scene { get; private set; }
-
-    /// <summary>
-    ///     Try to load scene.
-    /// </summary>
-    /// <returns>
-    ///     True if scene can be loaded, false otherwise.
-    /// </returns>
-    public bool TryLoadScene()
+    public class SceneTransitioner : MonoBehaviour
     {
-        if (Scene == null)
+        [field: SerializeField] public string SceneName { get; private set; } = string.Empty;
+
+        /// <summary>
+        ///     Load scene.
+        /// </summary>
+        public void LoadScene()
         {
-            Debug.LogWarning($"{nameof(SceneTransitioner)}.{nameof(Scene)} not assigned to object {name}.");
-            return false;
+            SceneManager.LoadScene(SceneName);
         }
-
-        SceneManager.LoadScene(Scene);
-        return true;
     }
-
-    /// <summary>
-    ///     Load scene.
-    /// </summary>
-    public void LoadScene()
-        => TryLoadScene();
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MiniGameCollection.SceneManagement
 {
-    public class DontDestroyOnLoadTag : MonoBehaviour
+    public class TagDontDestroyOnLoad : MonoBehaviour
     {
         void Awake()
         {

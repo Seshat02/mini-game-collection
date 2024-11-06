@@ -25,6 +25,11 @@
         /// <summary>
         ///     Both players win.
         /// </summary>
-        Both = 607761912,
+        BothWin = 607761912,
+
+        /// <summary>
+        ///     Both players lose.
+        /// </summary>
+        BothLose = 9915530,
     }
 }
