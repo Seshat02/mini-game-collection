@@ -38,6 +38,7 @@ namespace MiniGameCollection.Games2024.Team11
         public float speed;
         Vector3 moveDir;
         public CharacterController controller;
+        public bool isAttacking;
              
         
         protected override void OnTimerInitialized(int maxGameTime)
@@ -64,6 +65,7 @@ namespace MiniGameCollection.Games2024.Team11
         private void Start()
         {
             anim = GetComponent<Animator>();
+            isAttacking = false;
            
         }
         private void Update()
@@ -91,20 +93,29 @@ namespace MiniGameCollection.Games2024.Team11
 
             // See if player should jump
             bool doJump = ArcadeInput.Players[ID].Action1.Down;
-            bool doAttack = ArcadeInput.Players[ID].Action2.Down;
+            //bool doAttack = ArcadeInput.Players[ID].Action2.Down;
+            isAttacking = ArcadeInput.Players[ID].Action2.Down;
             if (doJump && !IsJumping)
             {
                 IsJumping = true;
                 
             }
+            anim.SetBool("isJumping", IsJumping);
             //Ground character to make the jumping animation false
 
-            if (doAttack)
+            if (isAttacking)
             {                
-                anim.SetBool("isAttacking", true) ;                
-            }
+                anim.SetBool("isAttacking", true) ;
+                isAttacking = false;
 
-            //anim.SetBool("isJumping", IsJumping);
+            }
+            if(!isAttacking)
+            {
+                anim.SetBool("isAttacking", false) ;                
+            }
+            
+
+            
         }
                 
         private void Movement()
