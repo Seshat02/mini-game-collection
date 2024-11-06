@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45de8bdc465e11247a4546adddb02a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: {fileID: 11400000, guid: 390c18f7fab76e54986ee2a312a789e1, type: 2}
+  <SceneName>k__BackingField: main-menu
 --- !u!4 &337607712
 Transform:
   m_ObjectHideFlags: 0

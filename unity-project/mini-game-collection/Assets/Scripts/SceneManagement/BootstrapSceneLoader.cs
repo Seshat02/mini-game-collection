@@ -6,11 +6,11 @@ namespace MiniGameCollection.SceneManagement
 {
     public class BootstrapSceneLoader : MonoBehaviour
     {
-        [field: SerializeField] public SceneSobj Scene;
+        [field: SerializeField] public string SceneName { get; private set; } = string.Empty;
 
         void LateUpdate()
         {
-            SceneManager.LoadScene(Scene);
+            SceneManager.LoadScene(SceneName);
         }
     }
 }
