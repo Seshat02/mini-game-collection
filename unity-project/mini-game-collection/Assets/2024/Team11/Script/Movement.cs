@@ -24,31 +24,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MiniGameCollection;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.Windows;
 
 public class Movement : MonoBehaviour
 {
-    float moveSpeed = 2;
-    float rotationSpeed = 4;
+    [field: SerializeField, Range(1, 2)]
+    private int PlayerID { get; set; } = 1;
+    public int ID => PlayerID - 1;
+
+    public float moveSpeed = 2;
+    public float rotationSpeed = 4;
     float runningSpeed;
     float vaxis, haxis;
-    public bool isJumping, isJumpingAlt, isGrounded = false;
+    public bool isJumping, isGrounded, isAttacking = false;
     Vector3 movement;
+
+    private Animator animator; 
+    private Rigidbody rb;
+    private bool attacked;
+
 
     void Start()
     {
         Debug.Log("Initialized: (" + this.name + ")");
+        animator = GetComponent<Animator>();        
+        rb = GetComponent<Rigidbody>();
+        
     }
 
 
     void FixedUpdate()
     {
         /*  Controller Mappings */
-        vaxis = ArcadeInput.Player1.AxisY;
+        vaxis = ArcadeInput.Players[ID].AxisY;
         //vaxis = Input.GetAxis("P1_AxisY");
-        haxis = ArcadeInput.Player1.AxisX;
+        haxis = ArcadeInput.Players[ID].AxisX;
         //haxis = Input.GetAxis("P1_AxisX");
-        isJumping = ArcadeInput.Player1.Action1.Down;
-        //isJumpingAlt = Input.GetKey(KeyCode.Joystick1Button0);
+        isJumping = ArcadeInput.Players[ID].Action1.Down;
+        isAttacking = ArcadeInput.Players[ID].Action2.Down;
 
         //Simplified...
         runningSpeed = vaxis;
@@ -56,7 +70,7 @@ public class Movement : MonoBehaviour
 
         if (isGrounded)
         {
-            movement = new Vector3(0, 0f, runningSpeed * 8);        // Multiplier of 8 seems to work well with Rigidbody Mass of 1.
+            movement = new Vector3(0, 0f, runningSpeed * 5);        // Multiplier of 8 seems to work well with Rigidbody Mass of 1.
             movement = transform.TransformDirection(movement);      // transform correction A.K.A. "Move the way we are facing"
         }
         else
@@ -64,13 +78,48 @@ public class Movement : MonoBehaviour
             movement *= 0.70f;                                      // Dampen the movement vector while mid-air
         }
 
-        GetComponent<Rigidbody>().AddForce(movement * moveSpeed);   // Movement Force
 
 
-        if ((isJumping || isJumpingAlt) && isGrounded)
+        if (runningSpeed != 0 || moveSpeed != 0 && isGrounded)
+        {
+            animator.SetBool("isWalking", true);
+        }
+
+        rb.AddForce(movement * moveSpeed);   // Movement Force
+
+        if (movement == Vector3.zero)
+        {
+            animator.SetFloat("Speed", 0);
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 1);
+            animator.SetBool("isWalking", true);
+        }
+
+
+        if ((isJumping) && isGrounded)
         {
             Debug.Log(this.ToString() + " isJumping = " + isJumping);
-            GetComponent<Rigidbody>().AddForce(Vector3.up * 150);
+            animator.SetBool("isJumping", true);
+            rb.AddForce(Vector3.up * 150);
+        }
+
+        //if(ArcadeInput.Player1.Action1.Down) animator.SetBool("isJumping", true);
+        //if(ArcadeInput.Player1.Action1.Released) animator.SetBool("isJumping", false);
+
+        if (isAttacking)
+        {
+            animator.SetBool("isAttacking", true);
+            attacked = true;
+
+            if(attacked)
+            {
+                attacked = false;
+                animator.SetBool("isAttacking", false);
+                
+            }
         }
 
 
@@ -86,6 +135,7 @@ public class Movement : MonoBehaviour
 
     }
 
+    
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Entered");
@@ -100,7 +150,9 @@ public class Movement : MonoBehaviour
         Debug.Log("Exited");
         if (collision.gameObject.CompareTag("Arena"))
         {
+            animator.SetBool("isJumping",false);
             isGrounded = false;
         }
     }
+        
 }
