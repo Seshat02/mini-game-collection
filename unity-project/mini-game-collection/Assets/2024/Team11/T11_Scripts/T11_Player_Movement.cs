@@ -4,6 +4,7 @@ using UnityEngine;
 using MiniGameCollection;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Windows;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace MiniGameCollection.Games2024.Team11
 {
@@ -126,6 +127,8 @@ namespace MiniGameCollection.Games2024.Team11
             {
                 this.transform.position = respawnPoint.transform.position;
                 Physics.SyncTransforms();
+
+                
             }
         }
 
