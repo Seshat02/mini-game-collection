@@ -4,7 +4,7 @@
 
 # Controls and How to Play 
 
-XXXXXXXXXXXXXX
+Joystick to move, Primary Button to do (BLANK), Secondary Button to do (BLANK). 
 
 ## Team Objectives
 - The game play is meant to be fast and frantic, with players having to act quickly lest they get ousted off the platform! Therefore, all elements need to be in service of that "vibe".
@@ -29,11 +29,8 @@ Team 11 is made up of **Dave Conventry, Jen Rodriguez Corpas,** and **Rowen Dale
 > Did X, Y, Z
 
 **Rowen** (She/Her)
-> Did X, Y, Z 
+> Brainstorming Assitance, Presentation, GDD
 
-## Code Examples
-
-XXXXXXXXXXXXXX
 
 ## Inspirations
 
