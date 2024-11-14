@@ -4,7 +4,7 @@
 
 # Controls and How to Play 
 
-Joystick to move, Primary Button to do (BLANK), Secondary Button to do (BLANK). 
+Joystick to move (Up to move forward, Down to move backwards, and left and right to rotate), Primary Button to Jump, Secondary Button to shoot the exercise balls. Win by knocking the other player off the background - be careful to not fall off the platform yourself! 
 
 ## Team Objectives
 - The game play is meant to be fast and frantic, with players having to act quickly lest they get ousted off the platform! Therefore, all elements need to be in service of that "vibe".
@@ -23,13 +23,13 @@ Joystick to move, Primary Button to do (BLANK), Secondary Button to do (BLANK).
 Team 11 is made up of **Dave Conventry, Jen Rodriguez Corpas,** and **Rowen Daley**.  
 
 **Dave** (He/Him)
-> Did X, Y, Z
+> Coding, Github Managment
 
 **Jen** (She/Her)
-> Did X, Y, Z
+> Coding, Github Managment 
 
 **Rowen** (She/Her)
-> Brainstorming Assitance, Presentation, GDD
+> Presentation, GDD
 
 
 ## Inspirations
