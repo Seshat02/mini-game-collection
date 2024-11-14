@@ -4,6 +4,9 @@ using UnityEngine;
 using MiniGameCollection;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Windows;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace MiniGameCollection.Games2024.Team11
 {
@@ -11,7 +14,7 @@ namespace MiniGameCollection.Games2024.Team11
     {
         [field: SerializeField, Range(1, 2)]
         private int PlayerID { get; set; } = 1;
-        public int ID => PlayerID - 1;
+        public int ID => PlayerID - 1;               
 
         public float moveSpeed = 2;
         public float rotationSpeed = 4;
@@ -21,7 +24,9 @@ namespace MiniGameCollection.Games2024.Team11
         Vector3 movement;
 
         private Animator animator;
-        private Rigidbody rb;
+        private Rigidbody rb;        
+        public T11_Score_Manager scoreManager;
+
 
         //Respawning        
         [SerializeField] private Transform respawnPoint;
@@ -31,23 +36,26 @@ namespace MiniGameCollection.Games2024.Team11
         public Transform spawningPos;
         public float sphereSpeed = 10f;
 
+
         void Start()
         {
             Debug.Log("Initialized: (" + this.name + ")");
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
-                        
-
+            
+            
         }
 
+        private void Update()
+        {
+            
+        }
 
         void FixedUpdate()
         {
             /*  Controller Mappings */
-            vaxis = ArcadeInput.Players[ID].AxisY;
-            //vaxis = Input.GetAxis("P1_AxisY");
-            haxis = ArcadeInput.Players[ID].AxisX;
-            //haxis = Input.GetAxis("P1_AxisX");
+            vaxis = ArcadeInput.Players[ID].AxisY;           
+            haxis = ArcadeInput.Players[ID].AxisX;            
             isJumping = ArcadeInput.Players[ID].Action1.Down;
             isAttacking = ArcadeInput.Players[ID].Action2.Down;
 
@@ -58,7 +66,6 @@ namespace MiniGameCollection.Games2024.Team11
 
             if (isAttacking)
             {
-                //Instantiate(sphere, spawningPos.transform.position, Quaternion.identity);
                 var sphere = Instantiate(spherePrefab, spawningPos.position, Quaternion.identity);
                 sphere.GetComponent<Rigidbody>().velocity = spawningPos.forward * sphereSpeed;
             }
@@ -98,34 +105,49 @@ namespace MiniGameCollection.Games2024.Team11
 
             }
         }
+              
 
+        public void OnTriggerEnter(Collider other)
+        {
+            bool coll = other.GetComponentInChildren<T11_Tag_Script_Collider>();
+            
+
+            if (coll)
+            {
+                this.transform.position = respawnPoint.transform.position;
+                Physics.SyncTransforms();
+
+                if (PlayerID == 1)
+                {
+                    scoreManager.player2Score++;
+                }
+                if (PlayerID == 2)
+                {
+                    scoreManager.player1Score++;
+                }
+            }
+
+            
+        }
 
         void OnCollisionEnter(Collision collision)
-        {
+        {            
             Debug.Log("Entered");
-            if (collision.gameObject.CompareTag("Arena"))
+            
+            if (collision.gameObject.name == "Arena")
             {
                 isGrounded = true;
             }
-                       
+
         }
 
         void OnCollisionExit(Collision collision)
         {
+            
             Debug.Log("Exited");
-            if (collision.gameObject.CompareTag("Arena"))
+            if (collision.gameObject.name == "Arena")
             {
-                animator.SetBool("isJumping", false);
                 isGrounded = false;
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Collider"))
-            {
-                this.transform.position = respawnPoint.transform.position;
-                Physics.SyncTransforms();
             }
         }
 

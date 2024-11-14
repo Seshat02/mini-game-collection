@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class T11_AttackBall : MonoBehaviour
+namespace MiniGameCollection.Games2024.Team11
 {
-    public float life = 3;
-
-    private void Awake()
+    public class T11_AttackBall : MonoBehaviour
     {
-        Destroy(gameObject, life);
-    }
+        public float life = 3;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Collider"))
+        private void Awake()
         {
-            Destroy(gameObject);
+            Destroy(gameObject, life);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Collider"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
