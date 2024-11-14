@@ -17,6 +17,8 @@ Joystick to move (Up to move forward, Down to move backwards, and left and right
 
 [Super Special Concept Art](https://postimg.cc/w7P1yzBD)
 
+And here's a link for our [Pitch Presentation!](https://docs.google.com/presentation/d/1dO5ZK0UfcBUhKSRx8C6OsOin1n6W5V3cr5_YiIkr7mg/edit?usp=sharing)
+
 
 ## Who is Team 11?
 
@@ -38,6 +40,10 @@ Team 11 is made up of **Dave Conventry, Jen Rodriguez Corpas,** and **Rowen Dale
 - *Nidhogg* (1 and 2)
 - Sumo Wrestling
 - Dodgeball
+
+## Resources Used
+
+Idle Animation - Maximo.com
 
 ## Flow of Play
 
